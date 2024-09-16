@@ -1,8 +1,9 @@
-// src/App.jsx
 import React, { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import MovieList from './components/MovieList';
 import Filter from './components/Filter';
 import AddMovieForm from './components/AddMovieForm';
+import MovieDescription from './components/MovieDescription'; // Add this import
 import './App.css';
 
 const App = () => {
@@ -26,9 +27,10 @@ const App = () => {
   return (
     <div className="app">
       <h1>Movie App</h1>
-      <AddMovieForm onAdd={handleAddMovie} />
-      <Filter onFilter={handleFilter} />
-      <MovieList movies={filteredMovies} />
+      <Routes>
+        <Route path="/" element={<><AddMovieForm onAdd={handleAddMovie} /><Filter onFilter={handleFilter} /><MovieList movies={filteredMovies} /></>} />
+        <Route path="/movie/:id" element={<MovieDescription movies={movies} />} />
+      </Routes>
     </div>
   );
 };

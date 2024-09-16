@@ -1,25 +1,22 @@
-// src/components/AddMovieForm.jsx
 import React, { useState } from 'react';
 
 const AddMovieForm = ({ onAdd }) => {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [posterURL, setPosterURL] = useState('');
   const [rating, setRating] = useState('');
+  const [description, setDescription] = useState('');
+  const [trailer, setTrailer] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title && description && posterURL && rating) {
-      onAdd({ title, description, posterURL, rating: parseFloat(rating) });
-      setTitle('');
-      setDescription('');
-      setPosterURL('');
-      setRating('');
-    }
+    onAdd({ title, rating: parseFloat(rating), description, trailer });
+    setTitle('');
+    setRating('');
+    setDescription('');
+    setTrailer('');
   };
 
   return (
-    <form onSubmit={handleSubmit} className="add-movie-form">
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Title"
@@ -28,7 +25,13 @@ const AddMovieForm = ({ onAdd }) => {
         required
       />
       <input
-        type="text"
+        type="number"
+        placeholder="Rating"
+        value={rating}
+        onChange={(e) => setRating(e.target.value)}
+        required
+      />
+      <textarea
         placeholder="Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
@@ -36,17 +39,9 @@ const AddMovieForm = ({ onAdd }) => {
       />
       <input
         type="text"
-        placeholder="Poster URL"
-        value={posterURL}
-        onChange={(e) => setPosterURL(e.target.value)}
-        required
-      />
-      <input
-        type="number"
-        placeholder="Rating"
-        value={rating}
-        onChange={(e) => setRating(e.target.value)}
-        required
+        placeholder="Trailer URL"
+        value={trailer}
+        onChange={(e) => setTrailer(e.target.value)}
       />
       <button type="submit">Add Movie</button>
     </form>
